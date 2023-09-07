@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import Dashboard from './components/Dashboard'
+import Devotees from './components/Devotees'
+import HinduCalendar from './components/HinduCalendar'
+import Priests from './components/Priests'
+import Header from './Header';
+import Sidebar from './Sidebar';
+import { Route, Routes } from 'react-router-dom'
+import './style.css'
 function App() {
+  const [toggle,setToggle]=useState(false) 
+  function Toggle(){
+    setToggle(!toggle);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  
+    <div>
+    <div className="d-flex">
+     <div className={toggle ? "d-none":"w-auto "}>
+     <Sidebar/>
+      </div>
+      <div className="col over-flow auto">
+              <Header Toggle={Toggle}/>
+              <Routes>
+        <Route path='/' element={<Dashboard/>}/>
+        <Route path='/devotees' element={<Devotees/>}/>
+        <Route path='/hinducalendar' element={<HinduCalendar/>}/>
+        <Route path='/priests' element={<Priests/>}/>
+      </Routes>
+
+      </div>
     </div>
+   </div>
   );
 }
 
